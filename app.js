@@ -42,7 +42,7 @@ app.get('/quick',(req,res) => {
 })
 
 
-// list of restaurant
+// list of brand not in progress
 app.get('/product',(req,res) => {
     let query = {};
     let brandId = Number(req.query.brandId);
@@ -58,9 +58,25 @@ app.get('/product',(req,res) => {
     })
 })
 
-app.get('/filter/:brandId',(req,res) => {
-    req.send('peter')
+//product details
+app.get('/details/:id',(req,res) => {
+    //let id = mongo.ObjectId(req.params.id)
+    let id = Number(req.params.id)
+    db.collection('data').find({product_id:id}).toArray((err,result) =>{
+        if(err) throw err;
+        res.send(result)
+    })
 })
+
+//sub product details
+app.get('/sub/:id',(req,res) => {
+    let id = Number(req.params.id)
+    db.collection('data').find({sub_product_id:id}).toArray((err,result) =>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
 
 //post place order
 app.post('/placeOrder',(req,res) => {
@@ -71,7 +87,7 @@ app.post('/placeOrder',(req,res) => {
     })
 })
 
-// //menu details
+// //oderItem details
 app.post('/oderItem',(req,res) => {
     if(Array.isArray(req.body.id)){
         db.collection('data').find({product_id:{$in:req.body.id}}).toArray((err,result) =>{
