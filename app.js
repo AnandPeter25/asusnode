@@ -25,6 +25,14 @@ app.get('/',(req,res) => {
     res.send('the message that i send in express app')
 })
 
+// list of quicksearch
+app.get('/qsearch',(req,res) => {
+    db.collection('quicksearch').find().toArray((err,result)=>{
+        if(err) throw err ;
+        res.send(result)
+    })
+})
+
 // list of product
 app.get('/product',(req,res) => {
     db.collection('data').find().toArray((err,result)=>{
