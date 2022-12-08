@@ -50,17 +50,14 @@ app.get('/quick',(req,res) => {
 })
 
 
-// list of brand not in progress
+// list of products
 app.get('/product',(req,res) => {
     let query = {};
-    let brandId = Number(req.query.brandId);
-    let subid = Number(req.query.subid);
-    if(brandId){
-        query={brand_id:brandId}
-    }else if(subid){
-        query={"sub_product_id":subid}
+    let quickid = Number(req.query.quickid);
+    if(quickid){
+        query={quicktype_id:quickid}
     }
-    db.collection('product').find(query).toArray((err,result) =>{
+    db.collection('prodlist').find(query).toArray((err,result) =>{
         if(err) throw err;
         res.send(result)
     })
