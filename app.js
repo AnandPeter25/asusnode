@@ -34,12 +34,12 @@ app.get('/qsearch',(req,res) => {
 })
 
 // list of product
-app.get('/product',(req,res) => {
-    db.collection('data').find().toArray((err,result)=>{
-        if(err) throw err;
-        res.send(result)
-    })
-})
+// app.get('/product',(req,res) => {
+//     db.collection('data').find().toArray((err,result)=>{
+//         if(err) throw err;
+//         res.send(result)
+//     })
+// })
 
 // list of quick search
 app.get('/quick',(req,res) => {
