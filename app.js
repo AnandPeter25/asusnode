@@ -49,7 +49,7 @@ app.get('/quick',(req,res) => {
     })
 })
 
-
+// https://asusnode.onrender.com/product?quickid=1
 // list of products
 app.get('/product',(req,res) => {
     let query = {};
@@ -57,7 +57,7 @@ app.get('/product',(req,res) => {
     if(quickid){
         query={quicktype_id:quickid}
     }
-    db.collection('prodlist').find(query).toArray((err,result) =>{
+    db.collection('originallist').find(query).toArray((err,result) =>{
         if(err) throw err;
         res.send(result)
     })
