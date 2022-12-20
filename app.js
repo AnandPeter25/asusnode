@@ -63,11 +63,24 @@ app.get('/product',(req,res) => {
     })
 })
 
+// list of productslist 
+app.get('/productlist',(req,res) => {
+    let query = {};
+    let quickid = Number(req.query.quickid);
+    if(quickid){
+        query={quicktype_id:quickid}
+    }
+    db.collection('prodlist').find(query).toArray((err,result) =>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
 //product details
 app.get('/details/:id',(req,res) => {
     //let id = mongo.ObjectId(req.params.id)
     let id = Number(req.params.id)
-    db.collection('data').find({product_id:id}).toArray((err,result) =>{
+    db.collection('fulldetails').find({type_id:id}).toArray((err,result) =>{
         if(err) throw err;
         res.send(result)
     })
