@@ -99,7 +99,7 @@ app.get('/details/:id',(req,res) => {
 // //menu details
 app.post('/menuItem',(req,res) => {
     if(Array.isArray(req.body.id)){
-        db.collection('menu').find({menu_id:{$in:req.body.id}}).toArray((err,result) =>{
+        db.collection('menu').find({type_id:{$in:req.body.id}}).toArray((err,result) =>{
             if(err) throw err;
             res.send(result)
         })
