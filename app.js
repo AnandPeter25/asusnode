@@ -86,17 +86,37 @@ app.get('/details/:id',(req,res) => {
     })
 })
 
-//sub product details
-app.get('/sub/:id',(req,res) => {
+// //sub product details
+// app.get('/sub/:id',(req,res) => {
+//     let id = Number(req.params.id)
+//     db.collection('data').find({sub_product_id:id}).toArray((err,result) =>{
+//         if(err) throw err;
+//         res.send(result)
+//     })
+// })
+
+
+// //menu details
+app.post('/menuItem',(req,res) => {
+    if(Array.isArray(req.body.id)){
+        db.collection('menu').find({menu_id:{$in:req.body.id}}).toArray((err,result) =>{
+            if(err) throw err;
+            res.send(result)
+        })
+    }else{
+        res.send('Inavlid Input')
+    }
+})
+
+//product place order
+app.get('/menu/:id',(req,res) => {
     let id = Number(req.params.id)
-    db.collection('data').find({sub_product_id:id}).toArray((err,result) =>{
+    db.collection('menu').find({type_id:id}).toArray((err,result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
 
-
-//post place order
 app.post('/placeOrder',(req,res) => {
     console.log(req.body);
     db.collection('orders').insert(req.body,(err,result) => {
@@ -104,6 +124,7 @@ app.post('/placeOrder',(req,res) => {
         res.send('Order Placed')
     })
 })
+
 
 // //oderItem details
 app.post('/oderItem',(req,res) => {
